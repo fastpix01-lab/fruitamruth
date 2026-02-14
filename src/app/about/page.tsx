@@ -125,9 +125,9 @@ export default function AboutPage() {
           </h2>
           <div className="grid sm:grid-cols-3 gap-8 max-w-3xl mx-auto">
             {[
-              { name: "Arjun Menon", role: "Founder & CEO", emoji: "👨‍💼" },
-              { name: "Priya Sharma", role: "Head of R&D", emoji: "👩‍🔬" },
-              { name: "Karthik Raj", role: "Operations Lead", emoji: "👨‍🍳" },
+              { name: "Akshay", role: "Founder", emoji: "👨‍💼" },
+              { name: "Kalyan Pilli", role: "CTO", emoji: "👨‍💼" },
+              { name: "Arun Kumar Pilli", role: "Operations Lead & Co founder", emoji: "👨‍🍳" },
             ].map((person) => (
               <div key={person.name} className="group">
                 <div className="w-32 h-32 bg-gradient-to-br from-brand-orange/20 to-brand-mango/20 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-105 transition-transform">

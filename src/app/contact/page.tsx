@@ -43,21 +43,22 @@ export default function ContactPage() {
                     icon: "📍",
                     title: "Visit Us",
                     lines: [
-                      "123 Fresh Lane, Koramangala",
-                      "Bangalore, Karnataka 560001",
+                      "MLA Colony, Banjarahills",
+                      "Hyderabad, Telangana 500034",
                     ],
                   },
                   {
                     icon: "📞",
                     title: "Call Us",
-                    lines: ["+91 98765 43210", "Mon-Sun, 7AM - 9PM"],
+                    lines: ["+91 89191 12551", "Mon-Sun, 7AM - 9PM"],
                   },
                   {
                     icon: "✉️",
                     title: "Email Us",
                     lines: [
-                      "hello@fruitamruth.com",
-                      "orders@fruitamruth.com",
+                      "ArunKumarPilli@fruitamruth.com",
+                      "Akshay@fruitamruth.com",
+                      "KalyanPilli@fruitamruth.com"
                     ],
                   },
                 ].map((info) => (

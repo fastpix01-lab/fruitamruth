@@ -61,10 +61,12 @@ export default function Footer() {
               Contact
             </h3>
             <ul className="space-y-2 text-sm text-gray-400">
-              <li>123 Fresh Lane</li>
-              <li>Bangalore, KA 560001</li>
-              <li>+91 98765 43210</li>
-              <li>hello@fruitamruth.com</li>
+              <li>MLA Colony, Banjara Hills</li>
+              <li>Hyderabad, TG 560034</li>
+              <li>+91 89191 12551</li>
+              <li>ArunKumarPilli@fruitamruth.com</li>
+              <li>Akshay@fruitamruth.com</li>
+              <li>KalyanPilli@fruitamruth.com</li>
             </ul>
           </div>
         </div>
