@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "About Us",
   description:
-    "Learn about Fruit Amruth — our story, mission, and passion for crafting the freshest natural juices.",
+    "Learn about Fruit Amruth — our story, mission, and passion for crafting the freshest natural juices and exotic fruit bowls sourced globally.",
 };
 
 export default function AboutPage() {
@@ -19,8 +19,7 @@ export default function AboutPage() {
             About Fruit Amruth
           </h1>
           <p className="text-gray-500 text-lg max-w-2xl mx-auto">
-            Born from a love for fresh fruits and healthy living, we&apos;re on
-            a mission to make natural juices accessible to everyone.
+            Fruit Amruth brings the world’s <span className="font-bold">rarest and healthiest fruits</span> to your glass and bowl, blending <span className="font-bold">locally sourced seasonal produce</span> with <span className="font-bold">premium imported fruits</span> for maximum nutrition and flavor.
           </p>
         </div>
       </section>
@@ -36,24 +35,17 @@ export default function AboutPage() {
             </div>
             <div>
               <h2 className="font-display text-3xl font-bold text-brand-dark mb-6">
-                From Farm to Glass
+                From Global Farms to Your Table
               </h2>
               <div className="space-y-4 text-gray-600 leading-relaxed">
                 <p>
-                  Fruit Amruth started in 2020 with a simple idea: everyone
-                  deserves access to truly fresh, natural juice. No concentrates,
-                  no added sugar, no compromises.
+                  Founded in 2020, Fruit Amruth is dedicated to delivering <span className="font-bold">fresh, nutrient-rich juices and Fruit Bowl Luxe creations</span>. We combine the best seasonal fruits from local farms in Karnataka and Kerala with ultra-exotic imported varieties from <span className="font-bold">Thailand (Rambutan, Mangosteen)</span>, <span className="font-bold">Japan (Yuzu, White Peach)</span>, <span className="font-bold">Costa Rica (Golden Passion Fruit)</span>, <span className="font-bold">New Zealand (Feijoa)</span>, and <span className="font-bold">South Africa (Kiwano Horned Melon)</span>.
                 </p>
                 <p>
-                  We partner directly with local farmers across Karnataka and
-                  Kerala to source the freshest seasonal fruits. Every morning,
-                  our team hand-selects the ripest produce to craft our juices.
+                  Every morning, our team hand-selects the ripest and most vibrant fruits to ensure <span className="font-bold">optimal nutrition, flavor, and freshness</span>. We believe nature provides the ultimate health benefits, and our mission is to bring them directly to your glass and bowl, <span className="font-bold">pure and unaltered</span>.
                 </p>
                 <p>
-                  The word &quot;Amruth&quot; means nectar — the divine elixir
-                  of life. We believe that nature provides the best flavors, and
-                  our job is simply to bring them to your glass, unaltered and
-                  pure.
+                  The word &quot;Amruth&quot; means nectar — the divine elixir of life. Our offerings are crafted to <span className="font-bold">nourish your body, boost immunity, and support a healthy lifestyle</span>, while celebrating the richness of both local and international fruits.
                 </p>
               </div>
             </div>
@@ -72,32 +64,32 @@ export default function AboutPage() {
               {
                 icon: "🌿",
                 title: "Purity",
-                desc: "100% natural ingredients. We never use concentrates, artificial flavors, or preservatives.",
+                desc: "100% natural ingredients sourced from local farms and trusted international orchards — <span className='font-bold'>no concentrates, artificial flavors, or preservatives</span>.",
               },
               {
                 icon: "🤝",
-                title: "Community",
-                desc: "We support local farmers and believe in building strong, sustainable relationships.",
+                title: "Global & Local Partnerships",
+                desc: "We collaborate with <span className='font-bold'>local farmers and international suppliers</span> to bring the highest quality and rarest fruits to your table.",
               },
               {
                 icon: "♻️",
                 title: "Sustainability",
-                desc: "Eco-friendly packaging, zero-waste practices, and a commitment to reducing our carbon footprint.",
+                desc: "<span className='font-bold'>Eco-friendly packaging and zero-waste practices</span>, minimizing environmental impact throughout our supply chain.",
               },
               {
                 icon: "✨",
-                title: "Quality",
-                desc: "Every juice undergoes rigorous quality checks. We never serve anything we wouldn't drink ourselves.",
+                title: "Health & Quality",
+                desc: "Every juice and fruit bowl is crafted to preserve <span className='font-bold'>nutrients, vitamins, and antioxidants</span> for optimal well-being.",
               },
               {
                 icon: "💡",
                 title: "Innovation",
-                desc: "We constantly experiment with new flavor combinations and health-boosting ingredients.",
+                desc: "Blending <span className='font-bold'>exotic international fruits</span> with seasonal local produce to create unique, nutrient-rich combinations.",
               },
               {
                 icon: "🎯",
                 title: "Transparency",
-                desc: "We list every ingredient. What you see is what you get — nothing hidden, nothing artificial.",
+                desc: "Every ingredient is listed. What you see is what you get — <span className='font-bold'>wholesome, natural, and pure</span>.",
               },
             ].map((value) => (
               <div
@@ -108,9 +100,10 @@ export default function AboutPage() {
                 <h3 className="font-display font-bold text-lg text-brand-dark mb-2">
                   {value.title}
                 </h3>
-                <p className="text-gray-500 text-sm leading-relaxed">
-                  {value.desc}
-                </p>
+                <p
+                  className="text-gray-500 text-sm leading-relaxed"
+                  dangerouslySetInnerHTML={{ __html: value.desc }}
+                />
               </div>
             ))}
           </div>
