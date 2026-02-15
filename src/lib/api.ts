@@ -101,14 +101,11 @@ export async function createOrder(order: {
   customer_email: string;
   items: OrderItem[];
   total: number;
-}): Promise<Order> {
-  const { data, error } = await supabase
+}): Promise<void> {
+  const { error } = await supabase
     .from("orders")
-    .insert({ ...order, status: "pending" })
-    .select()
-    .single();
+    .insert({ ...order, status: "pending" });
   if (error) throw error;
-  return data;
 }
 
 export async function fetchOrders(): Promise<Order[]> {

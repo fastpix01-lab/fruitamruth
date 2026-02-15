@@ -1,10 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useCart } from "@/context/CartContext";
-import { createOrder } from "@/lib/api";
+import { useCheckout } from "@/context/CheckoutContext";
 import Button from "@/components/Button";
+import CheckoutSteps from "@/components/CheckoutSteps";
 
 export default function OrderPage() {
   const {
@@ -13,79 +15,35 @@ export default function OrderPage() {
     updateQuantity,
     totalPrice,
     totalItems,
-    clearCart,
   } = useCart();
-  const [orderPlaced, setOrderPlaced] = useState(false);
-  const [placing, setPlacing] = useState(false);
+  const { setCustomerInfo, customerName: savedName, customerEmail: savedEmail } = useCheckout();
+  const router = useRouter();
+  const [customerName, setCustomerName] = useState(savedName);
+  const [customerEmail, setCustomerEmail] = useState(savedEmail);
   const [error, setError] = useState("");
-  const [customerName, setCustomerName] = useState("");
-  const [customerEmail, setCustomerEmail] = useState("");
 
-  const handlePlaceOrder = async () => {
+  const handleProceed = () => {
     if (!customerName.trim() || !customerEmail.trim()) {
       setError("Please enter your name and email.");
       return;
     }
-    setPlacing(true);
-    setError("");
-    try {
-      await createOrder({
-        customer_name: customerName.trim(),
-        customer_email: customerEmail.trim(),
-        items: items.map((item) => ({
-          product_id: item.product.id,
-          name: item.product.name,
-          price: item.product.price,
-          quantity: item.quantity,
-        })),
-        total: totalPrice,
-      });
-      clearCart();
-      setOrderPlaced(true);
-    } catch (err) {
-      console.error(err);
-      setError("Failed to place order. Please try again.");
-    } finally {
-      setPlacing(false);
-    }
+    setCustomerInfo(customerName.trim(), customerEmail.trim());
+    router.push("/checkout/address");
   };
-
-  if (orderPlaced) {
-    return (
-      <section className="py-24 md:py-32 bg-brand-cream min-h-screen flex items-center">
-        <div className="max-w-xl mx-auto px-4 text-center animate-scale-in">
-          <span className="text-8xl block mb-6">🎉</span>
-          <h1 className="font-display text-3xl md:text-4xl font-extrabold text-brand-dark mb-4">
-            Order Placed!
-          </h1>
-          <p className="text-gray-500 text-lg mb-2">
-            Thank you for your order. Your fresh juices are being prepared!
-          </p>
-          <p className="text-gray-400 text-sm mb-8">
-            Estimated delivery: 25-30 minutes
-          </p>
-          <Link href="/menu">
-            <Button variant="primary" size="lg">
-              Order More Juices
-            </Button>
-          </Link>
-        </div>
-      </section>
-    );
-  }
 
   return (
     <>
       {/* Header */}
-      <section className="bg-gradient-to-br from-brand-cream to-orange-50 py-16 md:py-20">
+      <section className="bg-gradient-to-br from-brand-cream to-orange-50 py-10 md:py-14">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="font-display text-4xl md:text-5xl font-extrabold text-brand-dark mb-4">
+          <h1 className="font-display text-4xl md:text-5xl font-extrabold text-brand-dark mb-2">
             Your Order
           </h1>
           <p className="text-gray-500 text-lg">
-            Review your cart and place your order.
+            Review your cart and proceed to checkout.
           </p>
         </div>
+        <CheckoutSteps current={0} />
       </section>
 
       <section className="py-12 md:py-16 bg-white">
@@ -136,12 +94,7 @@ export default function OrderPage() {
                     <div className="flex flex-col items-end gap-2">
                       <div className="flex items-center gap-2">
                         <button
-                          onClick={() =>
-                            updateQuantity(
-                              item.product.id,
-                              item.quantity - 1
-                            )
-                          }
+                          onClick={() => updateQuantity(item.product.id, item.quantity - 1)}
                           className="w-9 h-9 rounded-full bg-white border border-orange-200 flex items-center justify-center text-brand-dark hover:bg-orange-50 transition-colors font-bold cursor-pointer"
                         >
                           -
@@ -150,12 +103,7 @@ export default function OrderPage() {
                           {item.quantity}
                         </span>
                         <button
-                          onClick={() =>
-                            updateQuantity(
-                              item.product.id,
-                              item.quantity + 1
-                            )
-                          }
+                          onClick={() => updateQuantity(item.product.id, item.quantity + 1)}
                           className="w-9 h-9 rounded-full bg-white border border-orange-200 flex items-center justify-center text-brand-dark hover:bg-orange-50 transition-colors font-bold cursor-pointer"
                         >
                           +
@@ -170,18 +118,8 @@ export default function OrderPage() {
                           className="text-red-400 hover:text-red-600 transition-colors cursor-pointer"
                           aria-label={`Remove ${item.product.name}`}
                         >
-                          <svg
-                            className="w-5 h-5"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                            />
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                           </svg>
                         </button>
                       </div>
@@ -223,10 +161,7 @@ export default function OrderPage() {
 
                   <div className="space-y-3 mb-6">
                     {items.map((item) => (
-                      <div
-                        key={item.product.id}
-                        className="flex justify-between text-sm"
-                      >
+                      <div key={item.product.id} className="flex justify-between text-sm">
                         <span className="text-gray-600">
                           {item.product.name} x{item.quantity}
                         </span>
@@ -243,9 +178,7 @@ export default function OrderPage() {
                     </div>
                     <div className="flex justify-between text-sm">
                       <span className="text-gray-500">Delivery</span>
-                      <span className="font-medium text-brand-green">
-                        Free
-                      </span>
+                      <span className="font-medium text-brand-green">Free</span>
                     </div>
                     <div className="flex justify-between text-lg font-bold border-t border-orange-200 pt-3 mt-3">
                       <span className="text-brand-dark">Total</span>
@@ -253,18 +186,15 @@ export default function OrderPage() {
                     </div>
                   </div>
 
-                  {error && (
-                    <p className="text-red-500 text-sm mt-3">{error}</p>
-                  )}
+                  {error && <p className="text-red-500 text-sm mt-3">{error}</p>}
 
                   <Button
                     variant="primary"
                     size="lg"
                     className="w-full mt-6"
-                    disabled={placing}
-                    onClick={handlePlaceOrder}
+                    onClick={handleProceed}
                   >
-                    {placing ? "Placing Order..." : "Place Order"}
+                    Proceed to Checkout
                   </Button>
                   <Link href="/menu" className="block mt-3">
                     <Button variant="ghost" size="sm" className="w-full">

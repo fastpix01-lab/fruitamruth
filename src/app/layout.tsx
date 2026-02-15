@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Poppins } from "next/font/google";
 import { CartProvider } from "@/context/CartContext";
 import { AuthProvider } from "@/context/AuthContext";
+import { CheckoutProvider } from "@/context/CheckoutContext";
 import Layout from "@/components/Layout";
 import "./globals.css";
 
@@ -49,7 +50,9 @@ export default function RootLayout({
       <body className="bg-white text-brand-dark antialiased">
         <AuthProvider>
           <CartProvider>
-            <Layout>{children}</Layout>
+            <CheckoutProvider>
+              <Layout>{children}</Layout>
+            </CheckoutProvider>
           </CartProvider>
         </AuthProvider>
       </body>
